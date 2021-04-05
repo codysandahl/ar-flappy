@@ -8,10 +8,12 @@ This is an [Ionic](https://ionicframework.com/) app that integrates [AR.js](http
 2. Install dependencies
 
     ```npm install```
+
 3. If you are having trouble with Ionic, see https://ionicframework.com/getting-started
 4. Start the app
 
     ```ionic serve```
+
 5. Images of the barcode tags are [here](reference/barcodes/) or get more on [GitHub](https://github.com/nicolocarpignoli/artoolkit-barcode-markers-collection)
 
 ## Demo Pages
