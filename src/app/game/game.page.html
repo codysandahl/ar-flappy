@@ -5,5 +5,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <iframe src="/assets/game.html"></iframe>
+  <iframe #game src="/assets/game.html"></iframe>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="debugButton();">
+      <ion-icon name="analytics-outline">Debug</ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

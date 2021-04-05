@@ -14,6 +14,7 @@ video {
   -moz-transform:rotateY(180deg); /* Firefox */
 }
     </style>
+    <script src="/assets/components/game.js"></script>
     <script src="/assets/components/tracker.js"></script>
     <script src="/assets/components/aabb-collider.js"></script>
     <script src="/assets/components/moving-platform.js"></script>
@@ -22,7 +23,7 @@ video {
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
         <!-- NOTE: the black barcode images must have a white border around them to provide enough contrast for detection-->
-        <a-scene embedded shadow arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debug: false'>
+        <a-scene embedded shadow game arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debug: false'>
 
         <!-- load 3d models -->
         <a-assets>
