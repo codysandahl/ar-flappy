@@ -1,0 +1,63 @@
+<!doctype HTML>
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+      <script src="/aframe.js"></script>
+      <script src="/aframe-extras.js"></script>
+      <script src="/ar.js"></script>
+    </head>
+    <style>
+/* mirror video */
+video {
+  transform: rotateY(180deg);
+  -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+  -moz-transform:rotateY(180deg); /* Firefox */
+}
+    </style>
+    <script src="/assets/components/tracker.js"></script>
+    <script src="/assets/components/aabb-collider.js"></script>
+    <script src="/assets/components/moving-platform.js"></script>
+    <script src="/assets/components/particle-system.js"></script>
+    
+    <body style='margin : 0px; overflow: hidden;'>
+        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+        <!-- NOTE: the black barcode images must have a white border around them to provide enough contrast for detection-->
+        <a-scene embedded shadow arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debug: false'>
+
+        <!-- load 3d models -->
+        <a-assets>
+          <a-asset-item id="dragonModel" src="/assets/models/fox/Fox.gltf"></a-asset-item>
+        </a-assets>
+
+        <!-- define entities (visible objects) -->
+        <!-- tracker = follow a marker in 3d space, but don't disappear if it disappears -->
+        <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+        <a-entity light="type: spot; castShadow: true; intensity: 0.2; target: #dragon" position="-4 0 0" rotation="0 0 0"></a-entity>
+        <a-entity light="type: spot; castShadow: true; intensity: 0.2; target: #dragon" position="4 0 0" rotation="0 0 0"></a-entity>
+
+        <a-entity id="dragon" gltf-model="#dragonModel" scale="0.01 0.01 0.01" visible="true" animation-mixer="clip: none;" shadow="cast:true" 
+            position="0 0 -15"
+            tracker="marker: #dragonMarker; rotation: false; lockZ: true; lockZValue: -15;"
+            aabb-collider="objects: .platform;"
+        ></a-entity>
+
+        <a-box class="platform" position="0 1 -30" rotation="0 0 0" width="5" height="1" depth="1" color="#ff0000" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 2 -40" rotation="0 0 0" width="5" height="1" depth="1" color="#00ff00" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 0 -50" rotation="0 0 0" width="5" height="1" depth="1" color="#0000ff" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 0 -60" rotation="0 0 90" width="5" height="1" depth="1" color="#ff00ff" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="-4 0 -70" rotation="0 0 90" width="5" height="1" depth="1" color="#ff0000" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 0 -80" rotation="0 0 0" width="5" height="1" depth="1" color="#ff0000" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 -1 -90" rotation="0 0 0" width="5" height="1" depth="1" color="#00ff00" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="2 0 -100" rotation="0 0 90" width="5" height="1" depth="1" color="#0000ff" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 0 -110" rotation="0 0 90" width="5" height="1" depth="1" color="#ff00ff" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="-1 0 -120" rotation="0 0 0" width="5" height="1" depth="1" color="#ff0000" shadow="receive:true" aabb-collider moving-platform></a-box>
+        <a-box class="platform" position="0 0 -130" rotation="0 0 0" width="5" height="1" depth="1" color="#00ff00" shadow="receive:true" aabb-collider moving-platform></a-box>
+
+        <!-- define markers for augmented reality spacial tracking -->
+        <a-marker id="dragonMarker" type='barcode' value='511'></a-marker>
+
+        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
+        <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>

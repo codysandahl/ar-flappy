@@ -1,0 +1,7 @@
+{
+  "name": "ar-markers",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
