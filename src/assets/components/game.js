@@ -7,12 +7,15 @@
   },
 
   init: function() {
-    console.log("listening...");
     // initial debug?
     this.debug = false;
     if (this.data.debug) this.toggleDebug();
     // listen for iframe events
     window.addEventListener('message', this.onMessage.bind(this));
+    // listen for game events
+    this.el.addEventListener('platformDone', this.onPlatformDone.bind(this));
+    // game state setup
+    this.score = 0;
   },
 
   toggleDebug: function() {
@@ -38,5 +41,12 @@
     if (data.type == 'debug') {
       this.toggleDebug();
     }
+  },
+
+  onPlatformDone: function(event) {
+    // update score
+    this.score += 10;
+    // send message to ionic to display score
+    parent.postMessage({type: 'updateScore', score: this.score});
   }
 });

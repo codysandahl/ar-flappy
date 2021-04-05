@@ -20,6 +20,7 @@ AFRAME.registerComponent('moving-platform', {
     this.el.object3D.position.add(direction);
     // need to disappear?
     if (this.el.object3D.position.z >= this.data.maxZ) {
+      this.el.emit('platformDone', {}, true);
       this.el.parentNode.removeChild(this.el);
       this.el.destroy();
     }

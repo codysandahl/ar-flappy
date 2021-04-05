@@ -7,3 +7,6 @@
 - Collection of Components = https://github.com/supermedium/superframe
 - Shooter Game Components - https://github.com/supermedium/aframe-super-shooter-kit
 - CannonJS Physics Engine - https://github.com/schteppe/cannon.js
+
+## AR Notes
+- Ctrl+Alt+I to see A-Frame visual inspector
