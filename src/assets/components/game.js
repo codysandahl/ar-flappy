@@ -14,8 +14,10 @@
     window.addEventListener('message', this.onMessage.bind(this));
     // listen for game events
     this.el.addEventListener('platformDone', this.onPlatformDone.bind(this));
+    this.el.addEventListener('playerDied', this.onPlayerDied.bind(this));
     // game state setup
     this.score = 0;
+    this.running = true;
   },
 
   toggleDebug: function() {
@@ -25,6 +27,19 @@
       sceneEl.setAttribute("stats", "");
     } else {
       sceneEl.removeAttribute("stats");
+    }
+  },
+
+  toggleRunning: function() {
+    this.running = !this.running;
+    const sceneEl = this.el.sceneEl;
+    const els = sceneEl.querySelectorAll('*'); // get all entities
+    for (let i=0; i < els.length; i++) {
+      if (this.running && els[i].play) {
+        els[i].play();
+      } else if (!this.running && els[i].pause) {
+        els[i].pause();
+      }
     }
   },
 
@@ -40,6 +55,8 @@
     const data = event.data;
     if (data.type == 'debug') {
       this.toggleDebug();
+    } else if (data.type == 'pause') {
+      this.toggleRunning();
     }
   },
 
@@ -48,5 +65,11 @@
     this.score += 10;
     // send message to ionic to display score
     parent.postMessage({type: 'updateScore', score: this.score});
+  },
+
+  onPlayerDied: function(event) {
+    this.toggleRunning();
+    // send message to ionic
+    parent.postMessage({type: 'playerDied'});
   }
 });

@@ -72,8 +72,7 @@ AFRAME.registerComponent('tracker', {
     // decrease health
     this.health--;
     if (this.health <= 0) {
-      // TODO: death animation
-      // TODO: stop game and reset
+      el.emit('playerDied', {}, true);
       this.el.parentNode.removeChild(this.el);
     }
     // TODO: add damage animation or indicator

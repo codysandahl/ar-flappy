@@ -7,3 +7,5 @@
 - Stop game and offer to restart after death
 - Add a "Click to Start" image/button so the AR can get loaded and ready
 - Make a platform generator component that keeps generating the level instead of hard-coding
+- Check all eventListeners are removed when objects are destroyed
+- 

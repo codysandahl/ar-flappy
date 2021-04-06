@@ -12,6 +12,7 @@ export class GamePage implements AfterViewInit {
   @ViewChild('game') game: ElementRef;
   
   score:number = 0;
+  waitingToStart:boolean = true;
 
   ngAfterViewInit() {
   }
@@ -29,12 +30,29 @@ export class GamePage implements AfterViewInit {
     //console.log('message from iframe', event.data);
     if (data.type == 'updateScore') {
       this.score = data.score;
+    } else if (data.type == 'playerDied') {
+      console.log("TODO: player died");
     }
   }
 
+  public startButton() {
+    const gameWindow = this.game.nativeElement.contentWindow;
+    gameWindow.postMessage({type: 'start'});
+    this.waitingToStart = false;
+  }
+
   public debugButton() {
-    const gameEl = this.game.nativeElement;
-    const gameWindow = gameEl.contentWindow;
+    const gameWindow = this.game.nativeElement.contentWindow;
     gameWindow.postMessage({type: 'debug'});
+  }
+
+  public pauseButton() {
+    const gameWindow = this.game.nativeElement.contentWindow;
+    gameWindow.postMessage({type: 'pause'});
+  }
+
+  public resetButton() {
+    const gameEl = this.game.nativeElement;
+    gameEl.src += ''; // triggers refresh
   }
 }

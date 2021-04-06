@@ -27,7 +27,7 @@ video {
 
         <!-- load 3d models -->
         <a-assets>
-          <a-asset-item id="dragonModel" src="/assets/models/fox/Fox.gltf"></a-asset-item>
+          <a-asset-item id="dragonModel" src="/assets/models/GreenDragonToon.gltf"></a-asset-item>
         </a-assets>
 
         <!-- define entities (visible objects) -->
@@ -36,7 +36,7 @@ video {
         <a-entity light="type: spot; castShadow: true; intensity: 0.2; target: #dragon" position="-4 0 0" rotation="0 0 0"></a-entity>
         <a-entity light="type: spot; castShadow: true; intensity: 0.2; target: #dragon" position="4 0 0" rotation="0 0 0"></a-entity>
 
-        <a-entity id="dragon" gltf-model="#dragonModel" scale="0.01 0.01 0.01" visible="true" animation-mixer="clip: none;" shadow="cast:true" 
+        <a-entity id="dragon" gltf-model="#dragonModel" scale="0.015 0.015 0.015" visible="true" animation-mixer="clip: none;" shadow="cast:true" 
             position="0 0 -15"
             tracker="marker: #dragonMarker; rotation: false; lockZ: true; lockZValue: -15;"
             aabb-collider="objects: .platform;"
