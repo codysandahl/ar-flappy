@@ -16,6 +16,7 @@ video {
     </style>
     <script src="/assets/components/game.js"></script>
     <script src="/assets/components/tracker.js"></script>
+    <script src="/assets/components/health.js"></script>
     <script src="/assets/components/aabb-collider.js"></script>
     <script src="/assets/components/moving-platform.js"></script>
     <script src="/assets/components/particle-system.js"></script>
@@ -39,6 +40,7 @@ video {
         <a-entity id="dragon" gltf-model="#dragonModel" scale="0.015 0.015 0.015" visible="true" animation-mixer="clip: none;" shadow="cast:true" 
             position="0 0 -15"
             tracker="marker: #dragonMarker; rotation: false; lockZ: true; lockZValue: -15;"
+            health
             aabb-collider="objects: .platform;"
         ></a-entity>
 

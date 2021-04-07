@@ -1,7 +1,8 @@
 # Issue Tracker
 
 - Add visual frame to show the tracker boundary
-- Add health indicator to player
+  - https://threejs.org/docs/?q=line#manual/en/introduction/Drawing-lines
+- Make health indicator left-aligned instead of growing/shrinking from the center
 - Handle collisions with diagonal platforms since AABB becomes distorted and useless in that case
 - Have death animation for player
 - Stop game and offer to restart after death

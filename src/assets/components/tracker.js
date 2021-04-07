@@ -14,12 +14,9 @@ AFRAME.registerComponent('tracker', {
     maxX: { type: 'number', default: 4 },
     minY: { type: 'number', default: -2 },
     maxY: { type: 'number', default: 2 },
-    maxHealth: { type: 'int', default: 2 }
   },
 
   init: function () {
-    this.el.addEventListener('hit', this.collisionHandler.bind(this));
-    this.health = this.data.maxHealth;
   },
 
   tick: function(time, timeDelta) {
@@ -53,28 +50,4 @@ AFRAME.registerComponent('tracker', {
     else {
     }
   },
-
-  collisionHandler(event) {
-    if (!this.el || !this.el.getAttribute("visible")) return;
-    const el = this.el;
-    const sceneEl = el.sceneEl;
-    const otherEl = event.detail.el;
-    console.log('Entity collided with', otherEl, otherEl.getAttribute('position'));
-    // remove platform
-    let otherColor = otherEl.getAttribute('color');
-    otherEl.parentNode.removeChild(otherEl);
-    otherEl.destroy();
-    // show damage
-    let fx = document.createElement('a-entity');
-    fx.setAttribute('position', el.getAttribute('position'));
-    fx.setAttribute('particle-system', 'preset: hurt;'+(otherColor ? ' color: '+otherColor+';' : ''));
-    sceneEl.appendChild(fx);
-    // decrease health
-    this.health--;
-    if (this.health <= 0) {
-      el.emit('playerDied', {}, true);
-      this.el.parentNode.removeChild(this.el);
-    }
-    // TODO: add damage animation or indicator
-  }
 });
