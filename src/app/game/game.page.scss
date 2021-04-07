@@ -4,3 +4,28 @@ iframe {
   height: 100%;
   border: none;
 }
+#score {
+  color: var(--ion-color-primary-contrast);
+  background-color: var(--ion-color-primary);
+  padding: 5px;
+}
+.screen-center {
+  text-align: center !important;
+}
+.screen-center ion-fab-button {
+  margin-left: auto;
+  margin-right: auto;
+}
+#startGame {
+  font-size: x-large;
+  color: var(--ion-color-primary-contrast);
+  background-color: var(--ion-color-primary);
+  padding: 15px;
+}
+#logoContainer {
+  background-color: var(--ion-color-primary-contrast);
+  padding: 15px;
+}
+#logo {
+  width: 10em;
+}

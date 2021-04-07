@@ -17,14 +17,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/main-menu',
+        redirectTo: '/tabs/game',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/main-menu',
+    redirectTo: '/tabs/game',
     pathMatch: 'full'
   }
 ];

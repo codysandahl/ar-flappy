@@ -13,6 +13,7 @@ export class GamePage implements AfterViewInit {
   
   score:number = 0;
   waitingToStart:boolean = true;
+  gameOver:boolean = false;
 
   ngAfterViewInit() {
   }
@@ -31,13 +32,14 @@ export class GamePage implements AfterViewInit {
     if (data.type == 'updateScore') {
       this.score = data.score;
     } else if (data.type == 'playerDied') {
-      console.log("TODO: player died");
+      this.resetButton();
     }
   }
 
   public startButton() {
     const gameWindow = this.game.nativeElement.contentWindow;
     gameWindow.postMessage({type: 'start'});
+    this.score = 0;
     this.waitingToStart = false;
   }
 
@@ -52,7 +54,6 @@ export class GamePage implements AfterViewInit {
   }
 
   public resetButton() {
-    this.score = 0;
     const gameEl = this.game.nativeElement;
     gameEl.src += ''; // triggers refresh
     this.waitingToStart = true;

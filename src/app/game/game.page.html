@@ -1,21 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>AR Flappy</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <!-- click to start -->
+  <ion-fab *ngIf="waitingToStart" id="logoContainer" vertical="top" horizontal="center" slot="fixed">
+    <ion-img id="logo" src="/assets/images/Logo.png"></ion-img>
+  </ion-fab>
+  <!-- start game -->
   <ion-fab *ngIf="waitingToStart" vertical="center" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="startButton();">
-      <ion-icon name="play-circle-outline">Start Game</ion-icon>
-    </ion-fab-button>
+    <div class="screen-center">
+      <ion-fab-button (click)="startButton();">
+        <ion-icon name="play-circle-outline">Start Game</ion-icon>
+      </ion-fab-button>
+      <ion-text id="startGame">Start Game</ion-text>
+    </div>
   </ion-fab>
   <!-- game iframe -->
   <iframe #game src="/assets/game.html"></iframe>
   <!-- gui buttons -->
   <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-text>Score: {{score}}</ion-text>
+    <ion-text id="score">Score: {{score}}</ion-text>
   </ion-fab>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="resetButton();">

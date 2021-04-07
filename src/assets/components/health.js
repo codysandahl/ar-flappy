@@ -21,6 +21,8 @@ AFRAME.registerComponent('health', {
     this.el.addEventListener('componentchanged', this.onVisible.bind(this));
     // create health bar
     this.health = this.data.maxHealth;
+    this.healthBarOffset = new THREE.Vector3(this.data.positionOffset.x, this.data.positionOffset.y, this.data.positionOffset.z);
+    this.bgOffset = this.healthBarOffset.clone();
     if (this.data.displayHealthBar) {
       this.createHealthBar();
     }
@@ -28,15 +30,13 @@ AFRAME.registerComponent('health', {
 
   createHealthBar: function() {
     const el = this.el;
-    let position = el.object3D.position.clone();
-    position.x += this.data.positionOffset.x;
-    position.y += this.data.positionOffset.y;
-    position.z += this.data.positionOffset.z;
+    let bgPosition = el.object3D.position.clone().add(this.bgOffset);
+    let healthBarPosition = el.object3D.position.clone().add(this.healthBarOffset);
     // create the background
     let bg = document.createElement('a-box');
     this.bg = bg;
     el.sceneEl.appendChild(bg);
-    bg.object3D.position.copy(position);
+    bg.object3D.position.copy(bgPosition);
     bg.setAttribute('color', this.data.bgColor);
     bg.setAttribute('width', this.data.width+this.data.bgFrameSize);
     bg.setAttribute('height', this.data.height+this.data.bgFrameSize);
@@ -45,7 +45,7 @@ AFRAME.registerComponent('health', {
     let healthBar = document.createElement('a-box');
     this.healthBar = healthBar;
     el.sceneEl.appendChild(healthBar);
-    healthBar.object3D.position.copy(position);
+    healthBar.object3D.position.copy(healthBarPosition);
     healthBar.setAttribute('color', this.data.healthColor);
     healthBar.setAttribute('width', this.data.width);
     healthBar.setAttribute('height', this.data.height);
@@ -74,17 +74,19 @@ AFRAME.registerComponent('health', {
     if (!this.healthBar || !this.bg) return;
     // move health bar and bg with entity
     const el = this.el;
-    let position = el.object3D.position.clone();
-    position.x += this.data.positionOffset.x;
-    position.y += this.data.positionOffset.y;
-    position.z += this.data.positionOffset.z;
-    this.healthBar.object3D.position.copy(position);
-    this.bg.object3D.position.copy(position);
+    let bgPosition = el.object3D.position.clone().add(this.bgOffset);
+    let healthBarPosition = el.object3D.position.clone().add(this.healthBarOffset);
+    this.bg.object3D.position.copy(bgPosition);
+    this.healthBar.object3D.position.copy(healthBarPosition);
   },
 
   updateHealthBar: function() {
     if (!this.healthBar) return;
-    this.healthBar.setAttribute('width', this.data.width * (this.health / this.data.maxHealth));
+    const healthRatio = this.health / this.data.maxHealth;
+    const newWidth = this.data.width*healthRatio;
+    const widthDiff = this.data.width - newWidth;
+    this.healthBarOffset.x = this.data.positionOffset.x - widthDiff*0.5; // have to move it to the left because entities have origin at center
+    this.healthBar.setAttribute('width', newWidth);
   },
 
   collisionHandler(event) {

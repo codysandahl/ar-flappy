@@ -25,7 +25,7 @@ video {
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
         <!-- NOTE: the black barcode images must have a white border around them to provide enough contrast for detection-->
-        <a-scene embedded shadow game arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debug: false'>
+        <a-scene embedded shadow game vr-mode-ui="enabled: false" arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debugUIEnabled: false;'>
 
         <!-- load 3d models -->
         <a-assets>
@@ -34,13 +34,13 @@ video {
 
         <!-- define entities (visible objects) -->
         <!-- tracker = follow a marker in 3d space, but don't disappear if it disappears -->
-        <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
-        <a-entity light="type: spot; castShadow: true; intensity: 0.2; target: #dragon" position="-4 0 0" rotation="0 0 0"></a-entity>
-        <a-entity light="type: spot; castShadow: true; intensity: 0.2; target: #dragon" position="4 0 0" rotation="0 0 0"></a-entity>
+        <a-entity light="type: ambient; intensity: 0.7;"></a-entity>
+        <a-entity light="type: spot; castShadow: true; intensity: .5; target: #dragon; angle: 60;" position="0 0 -10" rotation="0 0 0"></a-entity>
 
         <!-- dragon (player) -->
         <a-entity id="dragon" gltf-model="#dragonModel" scale="0.015 0.015 0.015" visible="false" animation-mixer="clip: none;" shadow="cast:true" 
             position="0 0 -15"
+            rotation="0 180 0"
             tracker="marker: #dragonMarker; rotation: false; lockZ: true; lockZValue: -15;"
             health="visible: false;"
             aabb-collider="objects: .platform;"
