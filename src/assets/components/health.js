@@ -11,11 +11,15 @@ AFRAME.registerComponent('health', {
     depth: { type: 'number', default: 0.01 },
     healthColor: { default: '#ff0000' },
     bgColor: { default: '#333333' },
-    bgFrameSize: { type: 'number', default: 0.01 }
+    bgFrameSize: { type: 'number', default: 0.01 },
+    visible: { type: 'boolean', default: true },
   },
 
   init: function () {
+    // listen to game events
     this.el.addEventListener('hit', this.collisionHandler.bind(this));
+    this.el.addEventListener('componentchanged', this.onVisible.bind(this));
+    // create health bar
     this.health = this.data.maxHealth;
     if (this.data.displayHealthBar) {
       this.createHealthBar();
@@ -46,6 +50,11 @@ AFRAME.registerComponent('health', {
     healthBar.setAttribute('width', this.data.width);
     healthBar.setAttribute('height', this.data.height);
     healthBar.setAttribute('depth', this.data.depth);
+    // visible?
+    if (!this.data.visible) {
+      bg.setAttribute('visible', false);
+      healthBar.setAttribute('visible', false);
+    }
   },
 
   destroy: function() {
@@ -58,9 +67,11 @@ AFRAME.registerComponent('health', {
       this.bg = null;
     }
     this.el.removeEventListener('hit', this.collisionHandler.bind(this));
+    this.el.removeEventListener('componentchanged', this.onVisible.bind(this));
   },
 
   tick: function(time, timeDelta) {
+    if (!this.healthBar || !this.bg) return;
     // move health bar and bg with entity
     const el = this.el;
     let position = el.object3D.position.clone();
@@ -99,6 +110,15 @@ AFRAME.registerComponent('health', {
       el.emit('playerDied', {}, true);
       this.el.parentNode.removeChild(this.el);
       this.destroy();
+    }
+  },
+
+  onVisible(event) {
+    if (!this.healthBar || !this.bg) return;
+    if (event.detail.name === 'visible') {
+      let visible = event.target.getAttribute('visible');
+      this.healthBar.setAttribute('visible', visible);
+      this.bg.setAttribute('visible', visible);
     }
   }
 });

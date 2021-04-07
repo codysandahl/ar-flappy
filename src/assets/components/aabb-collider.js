@@ -13,7 +13,6 @@
 AFRAME.registerComponent('aabb-collider', {
   schema: {
     objects: { type: 'string', default: ''},
-    state: { type: 'string', default: 'collided' },
     radius: { type: 'number', default: 0.05 },
     watch: { type: 'boolean', default: true },
     box: { default: '' }
@@ -30,6 +29,30 @@ AFRAME.registerComponent('aabb-collider', {
     this.handleHit = this.handleHit.bind(this);
     this.handleHitEnd = this.handleHitEnd.bind(this);
 
+    // listen for game events
+    this.el.addEventListener('stateadded', this.onStateAdded.bind(this));
+    this.el.addEventListener('stateremoved', this.onStateRemoved.bind(this));
+  },
+
+  onStateAdded: function(event) {
+    if (event.detail === 'debug') {
+      // debug => show bounding box
+      if (!this.boxHelper) {
+        const mesh = this.el.getObject3D('mesh');
+        if (!mesh) return;
+        this.boxHelper = new THREE.BoxHelper(mesh, 0xff0000);
+        this.el.sceneEl.object3D.add(this.boxHelper); // add to THREE.js scene
+      }
+    }
+  },
+
+  onStateRemoved: function(event) {
+    if (event.detail === 'debug') {
+      if (this.boxHelper) {
+        this.el.sceneEl.object3D.remove(this.boxHelper);
+        this.boxHelper = null;
+      }
+    }
   },
 
   remove: function () {
@@ -83,11 +106,9 @@ AFRAME.registerComponent('aabb-collider', {
     const mesh = el.getObject3D('mesh');
     if (!mesh) return;
     // debug => show bounding box
-    if (!this.boxHelper) {
-      this.boxHelper = new THREE.BoxHelper(mesh, 0xff0000);
-      el.sceneEl.object3D.add(this.boxHelper); // add to THREE.js scene
+    if (this.boxHelper) {
+      this.boxHelper.update();
     }
-    this.boxHelper.update();
     // actual bounding box for collision
     if (!data.box) {
       data.box = new THREE.Box3();

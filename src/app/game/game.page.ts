@@ -52,7 +52,9 @@ export class GamePage implements AfterViewInit {
   }
 
   public resetButton() {
+    this.score = 0;
     const gameEl = this.game.nativeElement;
     gameEl.src += ''; // triggers refresh
+    this.waitingToStart = true;
   }
 }

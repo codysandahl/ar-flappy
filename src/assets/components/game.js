@@ -23,10 +23,21 @@
   toggleDebug: function() {
     const sceneEl = this.el.sceneEl;
     this.debug = !this.debug; // toggle current value
+    let entities = sceneEl.querySelectorAll('*');
     if (this.debug) {
       sceneEl.setAttribute("stats", "");
+      for (let i=0; i<entities.length; i++) {
+        if (entities[i].getAttribute('aabb-collider')) {
+          entities[i].addState('debug');
+        }
+      }
     } else {
       sceneEl.removeAttribute("stats");
+      for (let i=0; i<entities.length; i++) {
+        if (entities[i].getAttribute('aabb-collider')) {
+          entities[i].removeState('debug');
+        }
+      }
     }
   },
 
@@ -57,7 +68,18 @@
       this.toggleDebug();
     } else if (data.type == 'pause') {
       this.toggleRunning();
+    } else if (data.type == 'start') {
+      this.startGame();
     }
+  },
+
+  startGame: function() {
+    // make the player visible
+    this.player = document.querySelector('#dragon');
+    this.player.setAttribute('visible', 'true');
+    // create the platforms
+   this.platformGenerator = document.querySelector('#platformGenerator');
+   this.platformGenerator.addState('running');
   },
 
   onPlatformDone: function(event) {

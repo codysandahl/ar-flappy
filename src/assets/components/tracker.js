@@ -10,8 +10,8 @@ AFRAME.registerComponent('tracker', {
     mirror: { type: 'boolean', default: true }, /* mirror when camera is facing toward the user instead of away */
     lockZ: { type: 'boolean', default: false }, /* keep z-depth at a constant or track the marker? */
     lockZValue: { type: 'number', default: -5 }, /* z-depth to use IF lockZ is set to true */
-    minX: { type: 'number', default: -4 },
-    maxX: { type: 'number', default: 4 },
+    minX: { type: 'number', default: -3 },
+    maxX: { type: 'number', default: 3 },
     minY: { type: 'number', default: -2 },
     maxY: { type: 'number', default: 2 },
   },
