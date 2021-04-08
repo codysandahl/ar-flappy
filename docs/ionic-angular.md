@@ -30,3 +30,14 @@
 - Access DOM or child elements from Angular component
   - https://www.digitalocean.com/community/tutorials/angular-viewchild-access-component
   - https://stackoverflow.com/questions/53605978/get-iframe-img-in-angular-6
+- Deploy to Firebase
+  - https://ionicframework.com/docs/angular/pwa
+
+## Build and Deploy
+```
+ionic build --prod
+firebase deploy
+```
+Project Console: https://console.firebase.google.com/project/ar-flappy/overview
+Hosting URL: https://ar-flappy.web.app
+

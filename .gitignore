@@ -32,3 +32,4 @@ npm-debug.log*
 
 # project-specific ignore
 ideas.md
+/.firebase

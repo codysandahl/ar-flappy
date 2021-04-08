@@ -21,7 +21,7 @@ export class GamePage implements AfterViewInit {
   @HostListener('window:message', ['$event'])
   onGameMessage(event) {
     // protect against cross-origin attack
-    const trustedOrigins = ["http://localhost:8100"];
+    const trustedOrigins = ["http://localhost:8100", "https://ar-flappy.web.app"];
     if (!trustedOrigins.includes(event.origin)) {
       console.log("UNTRUSTED EVENT FROM", event.origin);
       return;
