@@ -9,7 +9,7 @@ AFRAME.registerComponent('moving-platform-generator', {
     maxZ: { type: 'number', default: -12 },
     maxPlatforms: { type: 'int', default: 4 },
     spacing: { type: 'number', default: 10 },
-    width: { type: 'number', default: 5 },
+    width: { type: 'number', default: 7 },
     height: { type: 'number', default: 1 },
     depth: { type: 'number', default: 1 },
   },
@@ -24,8 +24,8 @@ AFRAME.registerComponent('moving-platform-generator', {
     this.generators.push(this.createPlatform.bind(this, 0, 1.5, 0, '#00ff00'));
     this.generators.push(this.createPlatform.bind(this, 0, -1.5, 0, '#0000ff'));
     this.generators.push(this.createPlatform.bind(this, 0, 0, 90, '#ff00ff'));
-    this.generators.push(this.createPlatform.bind(this, -1.5, 0, 90, '#00ffff'));
-    this.generators.push(this.createPlatform.bind(this, 1.5, 0, 90, '#ffffff'));
+    this.generators.push(this.createPlatform.bind(this, -2.5, 0, 90, '#00ffff'));
+    this.generators.push(this.createPlatform.bind(this, 2.5, 0, 90, '#ffffff'));
     // create initial platforms
     this.numPlatforms = 0;
     if (this.data.running) {
@@ -42,8 +42,6 @@ AFRAME.registerComponent('moving-platform-generator', {
 
   createPlatform: function(x, y, rotation, color) {
     let box = document.createElement('a-box');
-    // TODO: randomly select platform positions
-    // TODO: randomly select color
     let z = this.data.startZ - this.numPlatforms*this.data.spacing;
     box.setAttribute('class', 'platform');
     box.setAttribute('position', x+' '+y+' '+z);

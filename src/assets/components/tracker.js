@@ -24,7 +24,8 @@ AFRAME.registerComponent('tracker', {
     if (this.data.marker.getAttribute("visible")) {
       this.el.setAttribute("visible", true);
       if (this.data.position) {
-        let markerPos = this.data.marker.getAttribute('position');
+        let markerPos = {};
+        Object.assign(markerPos, this.data.marker.getAttribute('position'));
         // handle mirror
         if (this.data.mirror) {
           markerPos.x *= -1;
@@ -40,7 +41,12 @@ AFRAME.registerComponent('tracker', {
         if (markerPos.y > this.data.maxY) markerPos.y = this.data.maxY;
         // handle y clamping
         // finalize position
-        this.el.setAttribute("position", markerPos);
+        let lerp = this.el.getAttribute('lerp');
+        if (lerp) {
+          Object.assign(lerp.position, markerPos);
+        } else {
+          this.el.setAttribute("position", markerPos);
+        }
       }
       if (this.data.rotation) {
         this.el.setAttribute("rotation", this.data.marker.getAttribute("rotation"));

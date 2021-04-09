@@ -8,6 +8,7 @@
 - Have death animation for player
 - Check all eventListeners are removed when objects are destroyed
 - Make tracker movement LERP instead of jumping around
+  - Current lerp component works with position but not rotation and scaling yet
 - To start game, move tag to a designated zone to make sure it's working OR offer mouse/touch fallback mode
 
 # Feature Requests
@@ -24,3 +25,5 @@
   - Use ARToolkit to process the programming from that screenshot
     - SEE https://github.com/AR-js-org/AR.js/blob/master/three.js/vendor/jsartoolkit5/js/artoolkit.api.js
   - Programming the dragon to fly through whole levels
+- Make the platforms move faster after a certain score
+  - Ex: After 100 points, play sound, give celebration particle FX, and speed up platforms
