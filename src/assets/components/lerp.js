@@ -43,6 +43,7 @@ AFRAME.registerComponent('lerp', {
 
   /**
    * Called on each scene tick.
+   * TODO: instead of using areVectorsSame every tick(), watch for changes inside of update(oldData) - SEE https://aframe.io/docs/1.2.0/core/component.html#update-olddata
    */
   tick: function (time, deltaTime) {
     let progress;

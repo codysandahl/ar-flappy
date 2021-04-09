@@ -4,12 +4,12 @@
  */
 AFRAME.registerComponent('tracker', {
   schema: {
-    marker: { type: 'selector' },
+    marker: { type: 'selector' }, // the CSS ID of the entity to track (ex: #dragonMarker, #dragon, etc)
     rotation: { type: 'boolean', default: true },
     position: { type: 'boolean', default: true },
-    mirror: { type: 'boolean', default: true }, /* mirror when camera is facing toward the user instead of away */
-    lockZ: { type: 'boolean', default: false }, /* keep z-depth at a constant or track the marker? */
-    lockZValue: { type: 'number', default: -5 }, /* z-depth to use IF lockZ is set to true */
+    mirror: { type: 'boolean', default: true }, // mirror when camera is facing toward the user instead of away
+    lockZ: { type: 'boolean', default: false }, // keep z-depth at a constant or track the marker?
+    lockZValue: { type: 'number', default: -5 }, // z-depth to use IF lockZ is set to true
     minX: { type: 'number', default: -3 },
     maxX: { type: 'number', default: 3 },
     minY: { type: 'number', default: -2 },

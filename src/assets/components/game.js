@@ -77,9 +77,14 @@
     // make the player visible
     this.player = document.querySelector('#dragon');
     this.player.setAttribute('visible', 'true');
+    // show the helper grids
+    let grids = document.querySelectorAll('.grid');
+    for (let i=0; i<grids.length; i++) {
+      grids[i].setAttribute('2d-grid', {visible: true});
+    }
     // create the platforms
-   this.platformGenerator = document.querySelector('#platformGenerator');
-   this.platformGenerator.addState('running');
+    this.platformGenerator = document.querySelector('#platformGenerator');
+    this.platformGenerator.addState('running');
   },
 
   onPlatformDone: function(event) {

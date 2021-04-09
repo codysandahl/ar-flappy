@@ -1,6 +1,6 @@
 <!doctype HTML>
 <html>
-  <!-- live game mode -->
+  <!-- periodic programming mode (pauses to ask player what they want to do next) -->
   <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="/aframe.js"></script>
@@ -23,7 +23,6 @@ video {
   <script src="/assets/components/moving-platform.js"></script>
   <script src="/assets/components/moving-platform-generator.js"></script>
   <script src="/assets/components/particle-system.js"></script>
-  <script src="/assets/components/2d-grid.js"></script>
   
   <body style='margin : 0px; overflow: hidden;'>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
@@ -47,7 +46,6 @@ video {
     <a-entity id="dragon" gltf-model="#dragonModel" scale="0.015 0.015 0.015" visible="false" animation-mixer="clip: none;" shadow="cast:true" 
       position="0 0 -15"
       rotation="0 180 0"
-      tracker="marker: #dragonMarker; rotation: false; lockZ: true; lockZValue: -15; mirror: true;"
       health="visible: false;"
       aabb-collider="objects: .platform;"
       lerp="lerpPosition: true; lerpRotation: false; lerpScale: false;"
@@ -60,7 +58,11 @@ video {
     <a-entity id="platformGenerator" moving-platform-generator="running: false;"></a-entity>
 
     <!-- define markers for augmented reality spacial tracking -->
-    <a-marker id="dragonMarker" type='barcode' value='511'></a-marker>
+    <a-marker id="left" type='barcode' value='0'></a-marker>
+    <a-marker id="right" type='barcode' value='3'></a-marker>
+    <a-marker id="up" type='barcode' value='6'></a-marker>
+    <a-marker id="down" type='barcode' value='9'></a-marker>
+    <a-marker id="go" type='barcode' value='511'></a-marker>
 
     <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
     <a-entity camera></a-entity>
