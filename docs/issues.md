@@ -1,6 +1,5 @@
 # Issue Tracker
 
-- Ionic "centered" logo, button, and "start game" are slightly off center
 - Handle collisions via OBB (oriented bounding box) with diagonal platforms since AABB becomes distorted and useless in that case
   - https://stackoverflow.com/questions/28499800/oriented-box-intersection-in-threejs
   - https://github.com/schteppe/cannon.js
@@ -18,6 +17,7 @@
   - You can add up to 5? instructions by adding one at a time (with one second pause)
   - Then you hold up the "Go" instruction or tap "Go" button to make it start
   - Have 3D models that indicate what that tag becomes (ex: "Left Arrow", "Go", etc)
+  - Send messages to Ionic to put programming instructions into a footer element
 - Create a bulk programming mode
   - Use 2 live tags to determine programming area
   - Capture screenshot when those 2 tags are visible and tracking

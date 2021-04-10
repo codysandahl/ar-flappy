@@ -12,19 +12,19 @@ const routes: Routes = [
         loadChildren: () => import('../main-menu/main-menu.module').then(m => m.MainMenuPageModule)
       },
       {
-        path: 'game',
+        path: 'game/:mode',
         loadChildren: () => import('../game/game.module').then(m => m.GamePageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/game',
+        redirectTo: '/tabs/main-menu',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/game',
+    redirectTo: '/tabs/main-menu',
     pathMatch: 'full'
   }
 ];

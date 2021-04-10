@@ -23,7 +23,8 @@ video {
   <script src="/assets/components/moving-platform.js"></script>
   <script src="/assets/components/moving-platform-generator.js"></script>
   <script src="/assets/components/particle-system.js"></script>
-  
+  <script src="/assets/components/2d-grid.js"></script>
+
   <body style='margin : 0px; overflow: hidden;'>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <!-- NOTE: the black barcode images must have a white border around them to provide enough contrast for detection-->
@@ -32,6 +33,10 @@ video {
     <!-- load 3d models -->
     <a-assets>
       <a-asset-item id="dragonModel" src="/assets/models/GreenDragonToon.gltf"></a-asset-item>
+      <img id="arrowLeft" src="/assets/images/arrow-circle-left.png" />
+      <img id="arrowRight" src="/assets/images/arrow-circle-right.png" />
+      <img id="arrowUp" src="/assets/images/arrow-circle-up.png" />
+      <img id="arrowDown" src="/assets/images/arrow-circle-down.png" />
     </a-assets>
 
     <!-- define entities (visible objects) -->
@@ -58,9 +63,13 @@ video {
     <a-entity id="platformGenerator" moving-platform-generator="running: false;"></a-entity>
 
     <!-- define markers for augmented reality spacial tracking -->
+    <a-image src="#arrowLeft" tracker="marker: #left; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
     <a-marker id="left" type='barcode' value='0'></a-marker>
+    <a-image src="#arrowRight" tracker="marker: #right; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
     <a-marker id="right" type='barcode' value='3'></a-marker>
+    <a-image src="#arrowUp" tracker="marker: #up; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
     <a-marker id="up" type='barcode' value='6'></a-marker>
+    <a-image src="#arrowDown" tracker="marker: #down; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
     <a-marker id="down" type='barcode' value='9'></a-marker>
     <a-marker id="go" type='barcode' value='511'></a-marker>
 

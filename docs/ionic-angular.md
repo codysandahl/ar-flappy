@@ -32,6 +32,12 @@
   - https://stackoverflow.com/questions/53605978/get-iframe-img-in-angular-6
 - Deploy to Firebase
   - https://ionicframework.com/docs/angular/pwa
+- Manage state
+  - https://indepth.dev/posts/1408/how-to-manage-angular-state-in-your-components
+- Angular routes with params
+  - https://appdividend.com/2020/07/14/angular-route-params-how-to-pass-route-params-in-angular/
+- Ionic Internationalized App Example
+  - https://market.ionicframework.com/starters/i18n-ionic
 
 ## Build and Deploy
 ```

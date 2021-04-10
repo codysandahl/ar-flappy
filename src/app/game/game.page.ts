@@ -1,4 +1,5 @@
 import { Component, HostListener, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -7,15 +8,24 @@ import { Component, HostListener, ViewChild, AfterViewInit, ElementRef } from '@
 })
 export class GamePage implements AfterViewInit {
 
-  constructor() { }
+  constructor(public router: Router, private route: ActivatedRoute) { }
 
   @ViewChild('game') game: ElementRef;
   
   score:number = 0;
   waitingToStart:boolean = true;
   gameOver:boolean = false;
+  mode:string = '';
 
   ngAfterViewInit() {
+    // TODO: load different template pages based on mode ("live" vs "periodic")
+    this.route.params.subscribe(params => {
+      if (!params.mode) {
+        console.log("Invalid mode");
+        this.router.navigate(['main-menu']);
+      }
+      this.mode = params.mode;
+    })
   }
 
   @HostListener('window:message', ['$event'])

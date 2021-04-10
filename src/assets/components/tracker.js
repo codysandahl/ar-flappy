@@ -14,6 +14,7 @@ AFRAME.registerComponent('tracker', {
     maxX: { type: 'number', default: 3 },
     minY: { type: 'number', default: -2 },
     maxY: { type: 'number', default: 2 },
+    hideWithMarker: { type: 'boolean', default: false }, // show this model always or hide it when the tracking marker disappears?
   },
 
   init: function () {
@@ -53,7 +54,8 @@ AFRAME.registerComponent('tracker', {
       }
     }
     // no marker => idle or default actions
-    else {
+    else if (this.data.hideWithMarker && this.el.getAttribute('visible')) {
+      this.el.setAttribute('visible', false);
     }
   },
 });

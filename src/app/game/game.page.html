@@ -2,21 +2,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- click to start -->
-  <ion-fab *ngIf="waitingToStart" id="logoContainer" vertical="top" horizontal="center" slot="fixed">
-    <ion-img id="logo" src="/assets/images/Logo.png"></ion-img>
-  </ion-fab>
-  <!-- start game -->
-  <ion-fab *ngIf="waitingToStart" vertical="center" horizontal="center" slot="fixed">
-    <div class="screen-center">
-      <ion-fab-button (click)="startButton();">
-        <ion-icon name="play-circle-outline">Start Game</ion-icon>
-      </ion-fab-button>
-      <ion-text id="startGame">Start Game</ion-text>
-    </div>
-  </ion-fab>
-  <!-- game iframe -->
-  <iframe #game src="/assets/game.html"></iframe>
+  <!-- game iframe chosen by the mode (live manual control, periodic programming)-->
+  <iframe *ngIf="mode == 'live'" #game src="/assets/game.html"></iframe>
+  <iframe *ngIf="mode == 'periodic'" #game src="/assets/game-periodic.html"></iframe>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div *ngIf="waitingToStart" id="logoContainer">
+          <ion-img id="logo" src="/assets/images/Logo.png"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div *ngIf="waitingToStart" class="screen-center">
+          <ion-button (click)="startButton();"><ion-icon slot="start" name="play-circle-outline"></ion-icon>Start Game</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <!-- gui buttons -->
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-text id="score">Score: {{score}}</ion-text>
