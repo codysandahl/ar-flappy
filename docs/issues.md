@@ -17,6 +17,7 @@
   - It asks what you want to do, and you put programming tags into the target area to add the instruction
   - You can add up to 5? instructions by adding one at a time (with one second pause)
   - Then you hold up the "Go" instruction or tap "Go" button to make it start
+  - Have 3D models that indicate what that tag becomes (ex: "Left Arrow", "Go", etc)
 - Create a bulk programming mode
   - Use 2 live tags to determine programming area
   - Capture screenshot when those 2 tags are visible and tracking

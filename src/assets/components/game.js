@@ -4,6 +4,7 @@
  AFRAME.registerComponent('game', {
   schema: {
     debug: { type: 'boolean', default: false },
+    platformsPerLevel: { type: 'int', default: 5 }, // how many platforms between leveling up?
   },
 
   init: function() {
@@ -17,6 +18,8 @@
     this.el.addEventListener('playerDied', this.onPlayerDied.bind(this));
     // game state setup
     this.score = 0;
+    this.level = 1;
+    this.platformsThisLevel = 0;
     this.running = true;
   },
 
@@ -89,9 +92,23 @@
 
   onPlatformDone: function(event) {
     // update score
-    this.score += 10;
+    this.score += 10*this.level;
+    this.platformsThisLevel++;
     // send message to ionic to display score
     parent.postMessage({type: 'updateScore', score: this.score});
+    // level up?
+    // TODO: animation for leveling up
+    if (this.platformsThisLevel >= this.data.platformsPerLevel) {
+      this.level++;
+      this.platformsThisLevel = 0;
+      console.log("LEVEL UP", this.level);
+      let speed = this.platformGenerator.getAttribute('moving-platform-generator').speed + 1;
+      let platforms = document.querySelectorAll('.platform');
+      for (let i=0; i<platforms.length; i++) {
+        platforms[i].setAttribute('moving-platform', {speed: speed}); // update all existing platform speed
+      }
+      this.platformGenerator.setAttribute('moving-platform-generator', { speed: speed });
+    }
   },
 
   onPlayerDied: function(event) {
