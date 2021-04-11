@@ -24,6 +24,7 @@ video {
   <script src="/assets/components/moving-platform-generator.js"></script>
   <script src="/assets/components/particle-system.js"></script>
   <script src="/assets/components/2d-grid.js"></script>
+  <script src="/assets/components/programmer.js"></script>
 
   <body style='margin : 0px; overflow: hidden;'>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
@@ -63,13 +64,25 @@ video {
     <a-entity id="platformGenerator" moving-platform-generator="running: false;"></a-entity>
 
     <!-- define markers for augmented reality spacial tracking -->
-    <a-image src="#arrowLeft" tracker="marker: #left; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
+    <a-image src="#arrowLeft" class="programmer"
+      tracker="marker: #left; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
+      programmer="type: left;"
+    ></a-image>
     <a-marker id="left" type='barcode' value='0'></a-marker>
-    <a-image src="#arrowRight" tracker="marker: #right; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
+    <a-image src="#arrowRight" class="programmer"
+      tracker="marker: #right; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
+      programmer="type: right;"
+    ></a-image>
     <a-marker id="right" type='barcode' value='3'></a-marker>
-    <a-image src="#arrowUp" tracker="marker: #up; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
+    <a-image src="#arrowUp" class="programmer"
+      tracker="marker: #up; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
+      programmer="type: up;"
+    ></a-image>
     <a-marker id="up" type='barcode' value='6'></a-marker>
-    <a-image src="#arrowDown" tracker="marker: #down; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;"></a-image>
+    <a-image src="#arrowDown" class="programmer"
+      tracker="marker: #down; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
+      programmer="type: down;"
+    ></a-image>
     <a-marker id="down" type='barcode' value='9'></a-marker>
     <a-marker id="go" type='barcode' value='511'></a-marker>
 

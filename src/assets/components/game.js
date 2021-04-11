@@ -88,6 +88,11 @@
     // create the platforms
     this.platformGenerator = document.querySelector('#platformGenerator');
     this.platformGenerator.addState('running');
+    // listen for programming events
+    const programmers = document.querySelectorAll('.programmer');
+    for (let i=0; i<programmers.length; i++) {
+      programmers[i].addEventListener('program', this.onProgram.bind(this));
+    }
   },
 
   onPlatformDone: function(event) {
@@ -115,5 +120,12 @@
     this.toggleRunning();
     // send message to ionic
     parent.postMessage({type: 'playerDied'});
-  }
+  },
+
+  /**
+   * Programming event received
+   */
+  onProgram: function(event) {
+    console.log("PROGRAM", event.detail.type);
+  },
 });
