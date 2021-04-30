@@ -25,19 +25,22 @@ video {
   <script src="/assets/components/particle-system.js"></script>
   <script src="/assets/components/2d-grid.js"></script>
   <script src="/assets/components/programmer.js"></script>
+  <script src="/assets/components/programmable.js"></script>
 
   <body style='margin : 0px; overflow: hidden;'>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <!-- NOTE: the black barcode images must have a white border around them to provide enough contrast for detection-->
-    <a-scene embedded shadow game vr-mode-ui="enabled: false" arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debugUIEnabled: false;'>
+    <a-scene embedded shadow game='periodic: true;' vr-mode-ui="enabled: false" arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; labelingMode: white_region; debugUIEnabled: false;'>
 
     <!-- load 3d models -->
     <a-assets>
       <a-asset-item id="dragonModel" src="/assets/models/GreenDragonToon.gltf"></a-asset-item>
-      <img id="arrowLeft" src="/assets/images/arrow-circle-left.png" />
-      <img id="arrowRight" src="/assets/images/arrow-circle-right.png" />
-      <img id="arrowUp" src="/assets/images/arrow-circle-up.png" />
-      <img id="arrowDown" src="/assets/images/arrow-circle-down.png" />
+      <img id="leftImg" src="/assets/images/arrow-circle-left.png" />
+      <img id="rightImg" src="/assets/images/arrow-circle-right.png" />
+      <img id="upImg" src="/assets/images/arrow-circle-up.png" />
+      <img id="downImg" src="/assets/images/arrow-circle-down.png" />
+      <img id="goImg" src="/assets/images/gamepad.png" />
+      <img id="trashImg" src="/assets/images/trash-alt.png" />
     </a-assets>
 
     <!-- define entities (visible objects) -->
@@ -55,36 +58,46 @@ video {
       health="visible: false;"
       aabb-collider="objects: .platform;"
       lerp="lerpPosition: true; lerpRotation: false; lerpScale: false;"
+      programmable
     ></a-entity>
 
     <!-- helper grid lines -->
     <a-entity class="grid" 2d-grid="visible: false; lowerLeft: -3 -2 -16; upperRight: 3 2 -16; color: #ffff00; opacity: 1.0;"></a-entity>
 
     <!-- platform generator -->
-    <a-entity id="platformGenerator" moving-platform-generator="running: false;"></a-entity>
+    <a-entity id="platformGenerator" moving-platform-generator="running: false; manual: true;"></a-entity>
 
     <!-- define markers for augmented reality spacial tracking -->
-    <a-image src="#arrowLeft" class="programmer"
+    <a-image src="#leftImg" class="programmer"
       tracker="marker: #left; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
-      programmer="type: left;"
+      programmer="type: left; target: #dragon;"
     ></a-image>
     <a-marker id="left" type='barcode' value='0'></a-marker>
-    <a-image src="#arrowRight" class="programmer"
+    <a-image src="#rightImg" class="programmer"
       tracker="marker: #right; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
-      programmer="type: right;"
+      programmer="type: right; target: #dragon;"
     ></a-image>
     <a-marker id="right" type='barcode' value='3'></a-marker>
-    <a-image src="#arrowUp" class="programmer"
+    <a-image src="#upImg" class="programmer"
       tracker="marker: #up; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
-      programmer="type: up;"
+      programmer="type: up; target: #dragon;"
     ></a-image>
     <a-marker id="up" type='barcode' value='6'></a-marker>
-    <a-image src="#arrowDown" class="programmer"
+    <a-image src="#downImg" class="programmer"
       tracker="marker: #down; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
-      programmer="type: down;"
+      programmer="type: down; target: #dragon;"
     ></a-image>
     <a-marker id="down" type='barcode' value='9'></a-marker>
+    <a-image src="#goImg" class="programmer"
+      tracker="marker: #go; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
+      programmer="type: go; target: #dragon;"
+    ></a-image>
     <a-marker id="go" type='barcode' value='511'></a-marker>
+    <a-image src="#trashImg" class="programmer"
+      tracker="marker: #trash; rotation: false; lockZ: true; lockZValue: -10; hideWithMarker: true;" 
+      programmer="type: trash; target: #dragon;"
+    ></a-image>
+    <a-marker id="trash" type='barcode' value='510'></a-marker>
 
     <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
     <a-entity camera></a-entity>

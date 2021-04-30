@@ -24,6 +24,7 @@ video {
   <script src="/assets/components/moving-platform-generator.js"></script>
   <script src="/assets/components/particle-system.js"></script>
   <script src="/assets/components/2d-grid.js"></script>
+  <script src="/assets/components/fire-breather.js"></script>
   
   <body style='margin : 0px; overflow: hidden;'>
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
@@ -51,6 +52,7 @@ video {
       health="visible: false;"
       aabb-collider="objects: .platform;"
       lerp="lerpPosition: true; lerpRotation: false; lerpScale: false;"
+      fire-breather="marker: #fireMarker; positionOffset: 0 0.85 0;"
     ></a-entity>
 
     <!-- helper grid lines -->
@@ -61,6 +63,7 @@ video {
 
     <!-- define markers for augmented reality spacial tracking -->
     <a-marker id="dragonMarker" type='barcode' value='511'></a-marker>
+    <a-marker id="fireMarker" type='barcode' value='510'></a-marker>
 
     <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
     <a-entity camera></a-entity>

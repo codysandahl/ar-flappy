@@ -18,6 +18,9 @@
         <div *ngIf="waitingToStart" class="screen-center">
           <ion-button (click)="startButton();"><ion-icon slot="start" name="play-circle-outline"></ion-icon>Start Game</ion-button>
         </div>
+        <div *ngIf="waitingToProgram" class="screen-center">
+          <ion-text color="primary"><h1>What should the dragon do next?</h1></ion-text>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -34,7 +37,7 @@
     <ion-fab-button (click)="resetButton();">
       <ion-icon name="refresh-outline">Reset Game</ion-icon>
     </ion-fab-button>
-    <ion-fab-button (click)="pauseButton();">
+    <ion-fab-button (click)="pauseButton();" *ngIf="mode == 'live'">
       <ion-icon name="pause-circle-outline">Pause</ion-icon>
     </ion-fab-button>
     <ion-fab-button (click)="debugButton();">

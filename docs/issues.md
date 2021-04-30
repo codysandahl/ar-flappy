@@ -1,31 +1,30 @@
 # Issue Tracker
 
-- Handle collisions via OBB (oriented bounding box) with diagonal platforms since AABB becomes distorted and useless in that case
+- Handle collisions via OBB (oriented bounding box) with diagonal platforms since AABB is useless in that case
   - https://stackoverflow.com/questions/28499800/oriented-box-intersection-in-threejs
   - https://github.com/schteppe/cannon.js
 - Have death animation for player
-- Check all eventListeners are removed when objects are destroyed
+- Check all eventListeners are removed when objects are destroyed to prevent memory leaks
 - Current lerp component works with position but not rotation and scaling yet
 - To start game, move tag to a designated zone to make sure it's working OR offer mouse/touch fallback mode
+- Disable programming before hitting start game
+- Start periodic mode paused
+- Disable pause putton in periodic mode
+- Start player in exact middle so they don't hit blocks above/below at start
+- Adjust programmable component so the default moveX and moveY aligns with the grid spacing
+- Allow swapping between front/rear facing cameras
+- When using rear facing camera, don't use mirroring of webcam feed
+- Lower threshold for detecting a marker? It's pretty spotty right now
+- Periodic mode should pause after hitting platform AND after dodging platform
 
 # Feature Requests
 
-- Create a periodic programming mode
-  - Dragon flies through the level
-  - After dodging/hitting a platform, app goes into programming mode
-  - It asks what you want to do, and you put programming tags into the target area to add the instruction
-  - You can add up to 5? instructions by adding one at a time (with one second pause)
-  - Then you hold up the "Go" instruction or tap "Go" button to make it start
-  - Have 3D models that indicate what that tag becomes (ex: "Left Arrow", "Go", etc)
-  - Send messages to Ionic to put programming instructions into a footer element
 - Create a bulk programming mode
   - Use 2 live tags to determine programming area
   - Capture screenshot when those 2 tags are visible and tracking
   - Use ARToolkit to process the programming from that screenshot
     - SEE https://github.com/AR-js-org/AR.js/blob/master/three.js/vendor/jsartoolkit5/js/artoolkit.api.js
   - Programming the dragon to fly through whole levels
-- Make the platforms move faster after a certain score
-  - Ex: After 100 points, play sound, give celebration particle FX, and speed up platforms
 - Make platforms that are like walls with only one viable hole to go through
   - Ex 1: One platform is the "root" that actually fires events like platformDone. Make the wall with a hole by adding "child" platforms that don't fire events other than collision
     - xxx

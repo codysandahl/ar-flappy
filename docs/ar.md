@@ -7,6 +7,10 @@
 - Collection of Components = https://github.com/supermedium/superframe
 - Shooter Game Components - https://github.com/supermedium/aframe-super-shooter-kit
 - CannonJS Physics Engine - https://github.com/schteppe/cannon.js
+- Animation Timeline Component - https://www.npmjs.com/package/aframe-animation-timeline-component
+- Using anime.js directly
+  - AFRAME.ANIME - https://aframe.io/docs/1.2.0/components/animation.html#using-anime-js-directly
+  - Timeline - https://animejs.com/documentation/#timelineBasics
 
 ## AR Notes
 - Ctrl+Alt+I to see A-Frame visual inspector

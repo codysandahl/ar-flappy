@@ -8,7 +8,7 @@
     numParticles: { type: 'int', default: 5 },
     particleSize: { type: 'vec3', default: {x: 0.1, y: 0.1, z: 0.1} },
     particleLifeSpan: { type: 'int', default: 2000 },
-    color: { type: 'string', default: '#ff0000' },
+    color: { type: 'array', default: ['#ff0000'] },
     velocityMin: { type: 'vec3', default: {x: -1, y: -1, z: -1 } },
     velocityMax: { type: 'vec3', default: {x: 1, y: 1, z: 1} },
     preset: { type: 'string', default: '' }
@@ -26,16 +26,30 @@
       this.data.velocityMin = {x: -1, y: -1, z: 0};
       this.data.velocityMax = {x: 1, y: 1, z: 0};
       this.data.particleLifeSpan = 1000;
+    } else if (this.data.preset == 'fire') {
+      this.data.gravity = 0;
+      this.data.numParticles = 100;
+      this.data.particleSize = {x: 0.05, y: 0.05, z: 0.05};
+      this.data.velocityMin = {x: -0.3, y: -0.3, z: -5};
+      this.data.velocityMax = {x: 0.3, y: 0.3, z: -3};
+      this.data.particleLifeSpan = 1000;
+      this.data.color = ['#00cc00', '#cc0000', '#cccc00'];
     }
     // create particles
     this.particles = [];
     this.numParticlesAlive = 0;
+    let color = this.data.color[0];
     for (let i=0; i<this.data.numParticles; i++) {
       let box = document.createElement('a-box');
       box.setAttribute('width', this.data.particleSize.x);
       box.setAttribute('height', this.data.particleSize.y);
       box.setAttribute('depth',this.data.particleSize.z);
-      box.setAttribute('color', this.data.color);
+      if (this.data.color.length > 1) {
+        let rndColor = Math.floor(Math.random() * this.data.color.length);
+        color = this.data.color[rndColor];
+      }
+      box.setAttribute('color', color);
+      //box.setAttribute('material', 'shader: standard; color: '+color+'; emissive: #ffa500; emissiveIntensity: 2;');
       let rangeX = this.data.velocityMax.x - this.data.velocityMin.x;
       let velocityX = (Math.random() * rangeX) + this.data.velocityMin.x;
       let rangeY = this.data.velocityMax.y - this.data.velocityMin.y;

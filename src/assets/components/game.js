@@ -5,6 +5,7 @@
   schema: {
     debug: { type: 'boolean', default: false },
     platformsPerLevel: { type: 'int', default: 5 }, // how many platforms between leveling up?
+    periodic: { type: 'boolean', default: false }, // periodic programming mode
   },
 
   init: function() {
@@ -21,6 +22,7 @@
     this.level = 1;
     this.platformsThisLevel = 0;
     this.running = true;
+    this.program = [];
   },
 
   toggleDebug: function() {
@@ -47,13 +49,21 @@
   toggleRunning: function() {
     this.running = !this.running;
     const sceneEl = this.el.sceneEl;
-    const els = sceneEl.querySelectorAll('*'); // get all entities
+    let els;
+    if (this.data.periodic) {
+      els = sceneEl.querySelectorAll('.platform');
+    } else {
+      els = sceneEl.querySelectorAll('*'); // get all entities
+    }
     for (let i=0; i < els.length; i++) {
       if (this.running && els[i].play) {
         els[i].play();
       } else if (!this.running && els[i].pause) {
         els[i].pause();
       }
+    }
+    if (this.data.periodic && this.running) {
+      this.platformGenerator.addState('generate');
     }
   },
 
@@ -93,6 +103,11 @@
     for (let i=0; i<programmers.length; i++) {
       programmers[i].addEventListener('program', this.onProgram.bind(this));
     }
+    // periodic mode?
+    if (this.data.periodic) {
+      setTimeout(this.toggleRunning.bind(this), 100); // give a brief pause to allow generating the platforms before pausing
+      parent.postMessage({type: 'program', name: 'wait'});
+    }
   },
 
   onPlatformDone: function(event) {
@@ -114,6 +129,11 @@
       }
       this.platformGenerator.setAttribute('moving-platform-generator', { speed: speed });
     }
+    // periodic mode?
+    if (this.data.periodic) {
+      this.toggleRunning();
+      parent.postMessage({type: 'program', name: 'wait'});
+    }
   },
 
   onPlayerDied: function(event) {
@@ -124,8 +144,20 @@
 
   /**
    * Programming event received
+   * TODO: reflect the programming in gui - maybe add fixed programming GUI in periodic mode and you can click OR use tags
    */
   onProgram: function(event) {
-    console.log("PROGRAM", event.detail.type);
+    if (this.running) return; // ignore while running
+    //console.log("PROGRAM GUI", event.detail.type);
+    if (event.detail.type == 'go') {
+      parent.postMessage({type: 'program', name: 'go'});
+      this.toggleRunning();
+      this.program = [];
+    } else if (event.detail.type == 'trash') {
+      this.program = [];
+      parent.postMessage({type: 'program', name: 'trash'});
+    } else {
+      this.program.push(event.detail.type);
+    }
   },
 });

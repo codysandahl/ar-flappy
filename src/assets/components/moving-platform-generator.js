@@ -12,6 +12,7 @@ AFRAME.registerComponent('moving-platform-generator', {
     width: { type: 'number', default: 7 },
     height: { type: 'number', default: 1 },
     depth: { type: 'number', default: 1 },
+    manual: { type: 'boolean', default: false }, // if manual, will wait for the event 'generate'
   },
 
   init: function() {
@@ -61,6 +62,7 @@ AFRAME.registerComponent('moving-platform-generator', {
   onPlatformDone: function(event) {
     event.target.removeEventListener('platformDone', this.onPlatformDone.bind(this));
     this.numPlatforms--;
+    if (this.data.manual) return;
     // create the next one
     while (this.numPlatforms < this.data.maxPlatforms) {
       this.createRandomPlatform();
@@ -68,9 +70,12 @@ AFRAME.registerComponent('moving-platform-generator', {
   },
 
   onStateAdded: function(event) {
-    if (this.el.is('running')) {
+    if (this.el.is('running') || (this.data.manual && this.el.is('generate'))) {
       while (this.numPlatforms < this.data.maxPlatforms) {
         this.createRandomPlatform();
+      }
+      if (this.data.manual && this.el.is('generate')) {
+        this.el.removeState('generate');
       }
     }
   },

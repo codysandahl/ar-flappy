@@ -7,6 +7,7 @@ AFRAME.registerComponent('programmer', {
     minArea: { type: 'vec3', default: {x: -2, y: -1, z: -15} },
     maxArea: { type: 'vec3', default: {x: 2, y: 1, z: -8} },
     type: { type: 'string', default: 'test' },
+    target: { type: 'selector' },
   },
 
   init: function() {
@@ -26,8 +27,13 @@ AFRAME.registerComponent('programmer', {
     //console.log(this.data.type, pos, this.isProgrammable, this.programArea.containsPoint(pos));
     if (this.programArea.containsPoint(pos)) {
       if (this.isProgrammable) {
-        //console.log("PROGRAM", this.data.type);
+        //console.log("PROGRAMMER", this.data.type, "target", this.data.target);
         this.isProgrammable = false;
+        // if it has a target, send the event directly to the entity
+        if (this.data.target) {
+          this.data.target.emit('program', {type: this.data.type});
+        }
+        // always emit the programming event on self
         this.el.emit('program', {type: this.data.type});
       }
     } else if (!this.isProgrammable) {

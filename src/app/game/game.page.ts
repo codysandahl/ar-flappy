@@ -14,11 +14,11 @@ export class GamePage implements AfterViewInit {
   
   score:number = 0;
   waitingToStart:boolean = true;
+  waitingToProgram:boolean = false;
   gameOver:boolean = false;
   mode:string = '';
 
   ngAfterViewInit() {
-    // TODO: load different template pages based on mode ("live" vs "periodic")
     this.route.params.subscribe(params => {
       if (!params.mode) {
         console.log("Invalid mode");
@@ -43,6 +43,24 @@ export class GamePage implements AfterViewInit {
       this.score = data.score;
     } else if (data.type == 'playerDied') {
       this.resetButton();
+    } else if (data.type == 'program') {
+      this.handleProgramMessage(data);
+    }
+  }
+
+  public handleProgramMessage(data) {
+    switch (data.name) {
+      case 'wait':
+        this.waitingToProgram = true;
+        break;
+
+      case 'go':
+        this.waitingToProgram = false;
+        break;
+
+      default:
+        console.log('ionic program message', data.name);
+        break;
     }
   }
 
@@ -67,5 +85,6 @@ export class GamePage implements AfterViewInit {
     const gameEl = this.game.nativeElement;
     gameEl.src += ''; // triggers refresh
     this.waitingToStart = true;
+    this.waitingToProgram = false;
   }
 }
