@@ -8,14 +8,15 @@
 - Current lerp component works with position but not rotation and scaling yet
 - To start game, move tag to a designated zone to make sure it's working OR offer mouse/touch fallback mode
 - Disable programming before hitting start game
-- Start periodic mode paused
-- Disable pause putton in periodic mode
 - Start player in exact middle so they don't hit blocks above/below at start
 - Adjust programmable component so the default moveX and moveY aligns with the grid spacing
 - Allow swapping between front/rear facing cameras
 - When using rear facing camera, don't use mirroring of webcam feed
 - Lower threshold for detecting a marker? It's pretty spotty right now
 - Periodic mode should pause after hitting platform AND after dodging platform
+- Have landscape and portrait interfaces
+  - Programming icons would go on side or bottom depending on orientation
+- Add menu buttons to get back to choose live/periodic
 
 # Feature Requests
 

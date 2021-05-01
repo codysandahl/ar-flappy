@@ -22,7 +22,6 @@
     this.level = 1;
     this.platformsThisLevel = 0;
     this.running = true;
-    this.program = [];
   },
 
   toggleDebug: function() {
@@ -144,7 +143,6 @@
 
   /**
    * Programming event received
-   * TODO: reflect the programming in gui - maybe add fixed programming GUI in periodic mode and you can click OR use tags
    */
   onProgram: function(event) {
     if (this.running) return; // ignore while running
@@ -152,12 +150,10 @@
     if (event.detail.type == 'go') {
       parent.postMessage({type: 'program', name: 'go'});
       this.toggleRunning();
-      this.program = [];
     } else if (event.detail.type == 'trash') {
-      this.program = [];
       parent.postMessage({type: 'program', name: 'trash'});
     } else {
-      this.program.push(event.detail.type);
+      parent.postMessage({type: 'program', name: event.detail.type});
     }
   },
 });

@@ -17,6 +17,7 @@ export class GamePage implements AfterViewInit {
   waitingToProgram:boolean = false;
   gameOver:boolean = false;
   mode:string = '';
+  programInstructions:string[] = []; 
 
   ngAfterViewInit() {
     this.route.params.subscribe(params => {
@@ -52,14 +53,20 @@ export class GamePage implements AfterViewInit {
     switch (data.name) {
       case 'wait':
         this.waitingToProgram = true;
+        this.programInstructions = [];
         break;
 
       case 'go':
         this.waitingToProgram = false;
         break;
 
+      case 'trash':
+        this.programInstructions = [];
+        break;
+
       default:
         console.log('ionic program message', data.name);
+        this.programInstructions.push(data.name);
         break;
     }
   }

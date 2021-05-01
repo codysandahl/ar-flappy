@@ -45,3 +45,13 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+<ion-footer *ngIf="mode == 'periodic'">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1" *ngFor="let instruction of programInstructions">
+        <ion-img src="/assets/images/arrow-circle-{{ instruction }}.png"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
